@@ -1,0 +1,16 @@
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+pandas>=2.1.0
+python-dateutil>=2.8.2
+openai
+python-dotenv
+langchain
+langchain-community
+langchain-openai
+langchain-core
+chromadb
+pdfplumber
+langsmith
+langchain-text-splitters
+langchain-chroma
+streamlit
