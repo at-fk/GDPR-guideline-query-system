@@ -14,3 +14,4 @@ langsmith
 langchain-text-splitters
 langchain-chroma
 streamlit
+pysqlite3-binary

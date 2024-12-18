@@ -1,4 +1,13 @@
 import streamlit as st
+
+# SQLite3の互換性対応（他のimportの前に配置）
+try:
+    __import__('pysqlite3')
+    import sys
+    sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+except ImportError:
+    pass
+
 from guideline_management_system import GuidelineManagementSystem
 import os
 
