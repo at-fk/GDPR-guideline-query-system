@@ -91,22 +91,17 @@ class GuidelineManagementSystem:
     def _init_vector_store(self):
         """Initialize Chroma vector store"""
         import chromadb
-        from chromadb.config import Settings
         
-        # ChromaDBクライアントを明示的に設定
-        client = chromadb.Client(
-            Settings(
-                chroma_db_impl="duckdb+parquet",  # データストレージ方式を指定
-                persist_directory=self.vector_store_path  # データ保存先
-            )
+        # 新しい推奨される方法でChromaDBクライアントを初期化
+        client = chromadb.PersistentClient(
+            path=self.vector_store_path
         )
         
         # クライアント設定を含めてChromaを初期化
         self.vector_store = Chroma(
             collection_name="guidelines_collection",
             embedding_function=self.embeddings,
-            persist_directory=self.vector_store_path,
-            client=client  # 作成したクライアントを使用
+            client=client
         )
         
         @traceable
@@ -196,7 +191,7 @@ class GuidelineManagementSystem:
             Returns:
                 Guideline ID of the processed document or existing ID if already processed
             """
-            # 既存のPDFをチェック
+            # ��存のPDFをチェック
             with sqlite3.connect(self.sqlite_path) as conn:
                 cur = conn.cursor()
                 cur.execute("SELECT id FROM guidelines WHERE pdf_path = ?", (pdf_path,))
